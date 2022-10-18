@@ -9,6 +9,7 @@
 	--side-small: 26;
 	--side-big: 36;
 	--depth: 4000px;
+	--transition: .75s cubic-bezier(.75, .5, 0, 1);
 }
 @font-face {
 	font-family: raleway_c;
@@ -27,7 +28,7 @@ body {
 	font-family: raleway_c, sans-serif;
 	line-height: 1.75;
 	height: var(--depth);
-	font-weight: 300;
+	font-weight: 100;
 }
 .container {
 	width: 100%;
@@ -35,15 +36,82 @@ body {
 	position: fixed;
 	perspective:  1500px;
 }
-.gallery {
+.container__gallery {
 	transform-style: preserve-3d;
 	height: 100%;
 }
-.frame {
+.container__frame {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	transition: var(--transition), opacity .75s ease;
+	will-change: transform;
+	transform-style: preserve-3d;
+}
+h1, h2, h3, h4 {
+	text-transform: uppercase;
+}
+.container__frame h2 {
+	text-align: center;
+	font-size: calc(var(--index) * 3.5);
+	width: min-content;
+	line-height: 1;
+}
+.container__media {
+	position: relative;
+	width: calc(var(--index) * var(--side-small)) ;
+	height: calc(var(--index) * var(--side-big));
+	background-position: center;
+	background-size: cover; 
+}
+.container__media__left{
+	right: calc(var(--side-small) / 2 * var(--index) + var(--gutter) );
+}
+.container__media__right{
+	left: calc(var(--side-small) / 2 * var(--index) + var(--gutter) );
+
+}
+.container__bg{
+	background-color: rgb(0 0 0 / .87);
+}
+video.container__media{
+	width: calc(var(--index) * var(--side-big)) ;
+	height: calc(var(--index) * var(--side-small));
+}
+video.container__media__left{
+	right: calc(var(--side-big) / 2 * var(--index) + var(--gutter) );
+}
+video.container__media__right{
+	left: calc(var(--side-big) / 2 * var(--index) + var(--gutter) );
+}
+.container__text__left > * {
+	position: relative;
+	right: 18vw;
+}
+.container__text__right > * {
+	position: relative;
+	left: 18vw;
+}
+.container__frame h3 {
+	font-size: calc(var(--index) * 2);
+}
+.container__frame p{
+	text-transform: uppercase;
+	font-weight: 300;
+	max-width: 30vw;
+	margin-top: 5vh;
+}
+.soundButton{
+	position: fixed;
+	bottom: 5vh;
+	right: 5vh;
+	cursor: pointer;
+	width: 24px;
+	transition: .25s ease;
+}
+.soundButton.paused{
+	opacity: .25;
 }
